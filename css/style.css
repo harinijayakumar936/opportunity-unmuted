@@ -207,6 +207,38 @@ main:focus,
   background: #FFB53D;
 }
 
+.install-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 12px;
+  margin: 16px 0 0;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-left: 6px solid var(--amber);
+  border-radius: 14px;
+  background: var(--card);
+}
+
+.install-banner p {
+  flex: 1;
+  margin: 0;
+  font-weight: 600;
+}
+
+.install-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  width: 100%;
+}
+
+.button-plain {
+  background: transparent;
+  color: var(--text);
+  text-decoration: underline;
+}
+
 .episode-card {
   display: block;
   text-decoration: none;

@@ -72,6 +72,10 @@ Builds the screens and handles navigation, search, and the form.
 - `handleAskSubmit()` checks that the message isn't empty, saves it with `saveQuestion()`, shows a
   thank-you note, and clears the form.
 - `moveFocusToHeading()` moves keyboard and screen reader focus to the new heading after a tab change.
+- `setUpInstallBanner()` shows the "Get the app" banner. On iPhone it explains the Safari steps,
+  because iPhones don't let websites show an install button. On Android and Chrome, the browser
+  fires a `beforeinstallprompt` event, and the banner's Install button uses it to open the real
+  install window. The banner never shows inside the installed app, and "Not now" hides it for good.
 - `registerServiceWorker()` turns on offline mode when the app runs on a real website.
 
 ### js/player.js

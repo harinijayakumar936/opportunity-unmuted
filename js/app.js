@@ -312,6 +312,69 @@ function moveFocusToHeading() {
   window.scrollTo(0, 0);
 }
 
+let installPrompt = null;
+
+function isInstalled() {
+  return window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+}
+
+function isIPhone() {
+  const agent = navigator.userAgent;
+  return agent.includes("iPhone") || agent.includes("iPad");
+}
+
+function wasInstallBannerClosed() {
+  try {
+    return localStorage.getItem("installBannerClosed") === "yes";
+  } catch (error) {
+    return false;
+  }
+}
+
+function showInstallBanner(message, canInstall) {
+  if (isInstalled() || wasInstallBannerClosed()) {
+    return;
+  }
+  document.getElementById("install-text").textContent = message;
+  document.getElementById("install-button").hidden = !canInstall;
+  document.getElementById("install-banner").hidden = false;
+}
+
+function closeInstallBanner() {
+  document.getElementById("install-banner").hidden = true;
+  try {
+    localStorage.setItem("installBannerClosed", "yes");
+  } catch (error) {
+    // if storage is blocked, the banner just shows again next time
+  }
+}
+
+function installApp() {
+  installPrompt.prompt();
+  installPrompt.userChoice.then(function () {
+    installPrompt = null;
+    closeInstallBanner();
+  });
+}
+
+function setUpInstallBanner() {
+  // iPhones have no install button, so we explain the steps instead
+  if (isIPhone()) {
+    showInstallBanner("Get the app: open this page in Safari, tap Share, then Add to Home Screen.", false);
+  }
+
+  // Android and Chrome tell us when the app can be installed
+  window.addEventListener("beforeinstallprompt", function (event) {
+    event.preventDefault();
+    installPrompt = event;
+    showInstallBanner("Get the app on your phone. It works offline too.", true);
+  });
+
+  window.addEventListener("appinstalled", closeInstallBanner);
+  document.getElementById("install-button").addEventListener("click", installApp);
+  document.getElementById("install-close").addEventListener("click", closeInstallBanner);
+}
+
 function registerServiceWorker() {
   // service workers only work on a real website, not when opening the file directly
   if ("serviceWorker" in navigator && location.protocol !== "file:") {
@@ -325,6 +388,7 @@ showCategoryButtons();
 showResources();
 showAbout();
 handleRoute();
+setUpInstallBanner();
 registerServiceWorker();
 
 document.getElementById("resource-search").addEventListener("input", showResources);

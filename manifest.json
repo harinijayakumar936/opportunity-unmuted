@@ -1,0 +1,23 @@
+{
+  "name": "Opportunity Unmuted",
+  "short_name": "Unmuted",
+  "description": "A student podcast about free programs, scholarships, tutoring, and mental health support.",
+  "id": "./",
+  "start_url": "./#listen",
+  "scope": "./",
+  "display": "standalone",
+  "theme_color": "#14213D",
+  "background_color": "#EEF0F5",
+  "icons": [
+    {
+      "src": "images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

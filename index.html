@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Opportunity Unmuted: a student podcast about free programs, scholarships, tutoring, and mental health support.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#14213D">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Unmuted">
+  <title>Opportunity Unmuted</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="images/logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <img class="logo" src="images/logo.svg" alt="" width="44" height="44">
+    <div>
+      <p class="site-title">Opportunity <span>Unmuted</span></p>
+      <p class="tagline">Student voices · Real resources</p>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section id="view-listen" class="view" aria-labelledby="listen-heading">
+      <h1 id="listen-heading" class="view-heading" tabindex="-1">Listen</h1>
+      <p class="intro">Short episodes made by students, for students.</p>
+      <ul id="episode-list" class="card-list"></ul>
+    </section>
+
+    <section id="view-episode" class="view" hidden></section>
+
+    <section id="view-find" class="view" hidden aria-labelledby="find-heading">
+      <h1 id="find-heading" class="view-heading" tabindex="-1">Find help</h1>
+      <p class="intro">Free help that already exists at school and in our community.</p>
+
+      <div class="help-slot"></div>
+
+      <label class="field-label" for="resource-search">Search resources</label>
+      <input id="resource-search" class="text-input" type="search" placeholder="Try &quot;tutoring&quot; or &quot;stress&quot;" autocomplete="off">
+
+      <div class="filter-buttons" role="group" aria-label="Filter by category" id="category-buttons"></div>
+
+      <p id="resource-count" class="result-count" role="status" aria-live="polite"></p>
+      <ul id="resource-list" class="card-list"></ul>
+      <p id="no-results" class="empty-message" hidden>
+        Nothing matches that yet. Try a different word or pick "All".
+        Know a resource we should add? <a href="#ask">Tell us on the Ask tab</a>.
+      </p>
+    </section>
+
+    <section id="view-ask" class="view" hidden aria-labelledby="ask-heading">
+      <h1 id="ask-heading" class="view-heading" tabindex="-1">Ask</h1>
+      <p class="intro">Send a question, suggest a resource, or join the show.</p>
+
+      <form id="ask-form" class="card form-card" novalidate>
+        <fieldset>
+          <legend class="field-label">What is this about?</legend>
+          <label class="choice"><input type="radio" name="type" value="Question for an episode" checked> Question for an episode</label>
+          <label class="choice"><input type="radio" name="type" value="Resource to add"> Resource to add</label>
+          <label class="choice"><input type="radio" name="type" value="I want to be a student reporter"> I want to be a student reporter</label>
+        </fieldset>
+
+        <label class="field-label" for="ask-message">Your message (required)</label>
+        <textarea id="ask-message" class="text-input" rows="5"></textarea>
+        <p id="message-error" class="error-text" hidden>Please write a message before sending.</p>
+
+        <label class="field-label" for="ask-name">Your name (optional)</label>
+        <input id="ask-name" class="text-input" type="text" autocomplete="name" aria-describedby="name-hint">
+        <p id="name-hint" class="hint">Leave this blank to stay anonymous. Please don't include phone numbers or addresses.</p>
+
+        <button class="button button-primary" type="submit">Send</button>
+      </form>
+
+      <p id="thank-you" class="thank-you" role="status" tabindex="-1" hidden></p>
+
+      <p class="hint">Messages here aren't read right away. If you need help now, use the numbers below.</p>
+      <div class="help-slot"></div>
+    </section>
+
+    <section id="view-about" class="view" hidden aria-labelledby="about-heading">
+      <h1 id="about-heading" class="view-heading" tabindex="-1">About</h1>
+
+      <div class="card about-card">
+        <p class="badge">NC Idea Challenge winner</p>
+        <p>
+          <strong>Opportunity Unmuted</strong> is an ongoing podcast series made by students.
+          Each short episode points you to free programs, scholarships, tutoring, and mental health
+          support that already exist in our school and community.
+        </p>
+        <p class="episode-count" id="episode-count"></p>
+        <p>
+          Created by <strong>Harini Jayakumar</strong>, South Iredell High School, Mooresville, NC.
+        </p>
+      </div>
+
+      <div class="card about-card">
+        <h2>Found us on a poster?</h2>
+        <p>
+          We put QR code posters in schools, libraries, and community spaces.
+          Scan one any time to jump straight to the newest episodes or to help.
+        </p>
+      </div>
+
+      <div class="card about-card">
+        <h2>Put the app on your phone</h2>
+        <p>
+          On iPhone, tap Share, then "Add to Home Screen". On Android, tap the menu, then
+          "Install app" or "Add to Home screen". After that it opens like any other app, even offline.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <div id="mini-player" class="mini-player" hidden>
+    <button id="mini-play-button" class="round-button" type="button" aria-label="Pause">
+      <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+    </button>
+    <div class="mini-info">
+      <p id="mini-title" class="mini-title"></p>
+      <input id="mini-progress" class="mini-progress" type="range" min="0" max="100" step="1" value="0" aria-label="Episode progress">
+      <p id="mini-time" class="mini-time"></p>
+    </div>
+    <p id="player-status" class="visually-hidden" role="status"></p>
+  </div>
+  <audio id="audio-player" preload="none"></audio>
+
+  <nav class="tab-bar" aria-label="Main">
+    <a class="tab" href="#listen" data-tab="listen">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="5" height="7" rx="2"/><rect x="16" y="14" width="5" height="7" rx="2"/></svg>
+      <span>Listen</span>
+    </a>
+    <a class="tab" href="#find" data-tab="find">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+      <span>Find help</span>
+    </a>
+    <a class="tab" href="#ask" data-tab="ask">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>
+      <span>Ask</span>
+    </a>
+    <a class="tab" href="#about" data-tab="about">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="17"/><line x1="12" y1="7.5" x2="12" y2="7.6"/></svg>
+      <span>About</span>
+    </a>
+  </nav>
+
+  <script src="js/data.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
